@@ -44,6 +44,8 @@
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             // Configure IdentityOptions
             
+            private readonly string corsPolicy = "AllowAnyOrigin";
+            
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
@@ -65,6 +67,17 @@
                 options.SignIn.RequireConfirmedEmail = false;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
+           
+            // Add CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
+
 ```
 
 ### Connection String With Database 
